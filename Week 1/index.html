@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Getting to Know Vue.js</title>
+    </head>
+    <body>
+        <!-- Div to Mount App -->
+        <div>
+            <!-- Reference to Vue.js Library -->
+            <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+            <!-- Script Element for our first App -->
+            <script>
+                var app = new Vuew({
+                    el: "#app",
+                    data: {
+                        propertyName: "Hello from Getting to Know Vue.js!",
+                    },
+                });
+            </script>
+        </div>
+
+        <!-- Div to Mount App -->
+        <div id="app">{{ propertyName }}</div>
+    </body>
+</html>
