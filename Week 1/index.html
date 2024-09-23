@@ -7,22 +7,27 @@
     </head>
     <body>
         <!-- Div to Mount App -->
+        <div id="app">
+            <p>{{ name }}</p>
+            <p>{{ module }}</p>
+            <p>{{ phone }}</p>
+        </div>
+
         <div>
             <!-- Reference to Vue.js Library -->
-            <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.js"></script>
 
             <!-- Script Element for our first App -->
             <script>
-                var app = new Vuew({
+                var app = new Vue({
                     el: "#app",
                     data: {
-                        propertyName: "Hello from Getting to Know Vue.js!",
+                        name: "Aman Mishra",
+                        phone: "+1 (480) 658-7171",
+                        module: "CST3144",
                     },
                 });
             </script>
         </div>
-
-        <!-- Div to Mount App -->
-        <div id="app">{{ propertyName }}</div>
     </body>
 </html>
