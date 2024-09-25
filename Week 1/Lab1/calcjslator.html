@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <label>x</label>
+        <input type="number" id="x" />
+        <br />
+        <label>y</label>
+        <input type="number" id="y" />
+        <br />
+        <label>--------------</label>
+        <br />
+        <label>=</label>
+        <label id="result">0</label>
+
+        <br />
+        <button id="addButton" onclick="getSum()">add</button>
+
+        <script>
+            x = parseInt(document.getElementById("x").value);
+            y = parseInt(document.getElementById("y").value);
+            sum = x + y;
+
+            function getSum() {
+                document.getElementById("result").innerText = sum;
+            }
+        </script>
+    </body>
+</html>
