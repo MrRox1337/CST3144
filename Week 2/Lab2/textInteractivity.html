@@ -21,6 +21,11 @@
                 <p v-html="product.description"></p>
 
                 <p>Price: {{product.price}}</p>
+
+                <button v-on:click="addToCart" />
+                    Add to Cart 
+                </button>
+                <!-- <button @click="addItem"> Add to Cart </button> -->
             </main>
         </div>
         <script type="text/javascript">
@@ -38,6 +43,11 @@
                         image: "img/product.gif",
                     },
                     cart: [],
+                },
+                methods: {
+                    addToCart: function () {
+                        this.cart.push(this.product.id);
+                    },
                 },
             });
         </script>
