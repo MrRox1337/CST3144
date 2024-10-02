@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Vue.js Pet Depot</title>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.js"></script>
+    </head>
+    <body>
+        <div id="App">
+            <header>
+                <h1 v-text="sitename"></h1>
+                <!-- <h1>{{sitename}}</h1> -->
+            </header>
+            <main>
+                <figure>
+                    <!-- bind 'src' attr to product.image' in 'data' -->
+                    <img :src="club.image" :alt="club.alt" />
+                </figure>
+                <h2>Topic: {{club.subject}}</h2>
+                <p>Location: {{club.location}}</p>
+
+                <p>Price: {{club.price}}</p>
+            </main>
+        </div>
+        <script type="text/javascript">
+            let webstore = new Vue({
+                el: "#App",
+                data: {
+                    sitename: "After School Club",
+                    club: {
+                        id: 1001,
+                        subject: "Math",
+                        location: "London",
+                        price: "100",
+                        alt: "math image",
+                        image: "img/math.png",
+                    },
+                },
+            });
+        </script>
+    </body>
+</html>
