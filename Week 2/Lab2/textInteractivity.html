@@ -5,27 +5,44 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Vue.js Pet Depot</title>
         <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.js"></script>
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+        />
     </head>
     <body>
         <div id="App">
             <header>
                 <h1 v-text="sitename"></h1>
                 <!-- <h1>{{sitename}}</h1> -->
+
+                <button v-on:click="showCheckout">
+                    <!-- cartItemCount is used the same way as a data property. -->
+                    {{ cartItemCount }}
+                    <!-- add the cart icon -->
+                    <span class="fas fa-cart-plus"></span> Checkout
+                </button>
             </header>
             <main>
-                <figure>
-                    <!-- bind 'src' attr to product.image' in 'data' -->
-                    <img v-bind:src="product.image" />
-                </figure>
-                <h2 v-text="product.title"></h2>
-                <p v-html="product.description"></p>
+                <div v-if="showProduct">
+                    <!-- Show Product Page -->
+                    <figure>
+                        <!-- bind 'src' attr to product.image' in 'data' -->
+                        <img v-bind:src="product.image" />
+                    </figure>
+                    <h2 v-text="product.title"></h2>
+                    <p v-html="product.description"></p>
 
-                <p>Price: {{product.price}}</p>
+                    <p>Price: {{product.price}}</p>
+                    <p>{{product.displayedInventory}} in stock</p>
 
-                <button v-on:click="addToCart" />
-                    Add to Cart 
-                </button>
-                <!-- <button @click="addItem"> Add to Cart </button> -->
+                    <button v-if="canAddToCart" v-on:click="addToCart">Add to Cart</button>
+                    <!-- <button @click="addItem"> Add to Cart </button> -->
+                    <button v-else disabled="disabled">Add to Cart</button>
+                </div>
+                <div v-else>
+                    <!-- Show Checkout Page -->
+                </div>
             </main>
         </div>
         <script type="text/javascript">
@@ -41,12 +58,27 @@
                             "organic goodness for your cat.",
                         price: 2000,
                         image: "img/product.gif",
+                        availableInventory: 5,
+                        displayedInventory: 5,
                     },
                     cart: [],
+                    showProduct: true,
                 },
                 methods: {
                     addToCart: function () {
                         this.cart.push(this.product.id);
+                        this.product.displayedInventory = this.product.displayedInventory - 1;
+                    },
+                    showCheckout: function () {
+                        this.showProduct = this.showProduct ? false : true;
+                    },
+                },
+                computed: {
+                    cartItemCount: function () {
+                        return this.cart.length || "";
+                    },
+                    canAddToCart: function () {
+                        return this.product.availableInventory > this.cartItemCount;
                     },
                 },
             });

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Vue.js Pet Depot</title>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.js"></script>
+    </head>
+    <body>
+        <div id="App">
+            <p>Area is equal to: {{area}}</p>
+            <p>
+                <button @click="length += 1">Add Length</button>
+                <button @click="width += 1">Add Width</button>
+            </p>
+        </div>
+        <script type="text/javascript">
+            let webstore = new Vue({
+                el: "#App",
+                data: {
+                    length: 5,
+                    width: 3,
+                },
+                computed: {
+                    area: function () {
+                        return this.width * this.length;
+                    },
+                },
+            });
+        </script>
+    </body>
+</html>
