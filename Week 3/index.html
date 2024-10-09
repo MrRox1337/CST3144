@@ -53,16 +53,23 @@
                     <p><strong>City: </strong> <input v-model="order.city" /></p>
                     <p>
                         <strong>State: </strong>
-                        <select v-model="order.state">
-                            <option>AL</option>
-                            <option>AR</option>
-                            <option>CA</option>
-                            <option>NV</option>
+                        <select v-model="order.state" class="form-control">
+                            <option disabled value="">State</option>
+                            <option v-for="(state, code) in states" v-bind:value="states.AL">
+                                {{code}}
+                            </option>
                         </select>
                     </p>
                     <p><strong>Zip/Postal Code: </strong> <input v-model="order.zip" /></p>
                     <p>
-                        <input type="checkbox" id="gift" value="true" v-model="order.gift" />
+                        <input
+                            type="checkbox"
+                            id="gift"
+                            value="true"
+                            v-model="order.gift"
+                            v-bind:true-value="order.sendGift"
+                            v-bind:false-value="order.dontSendGift"
+                        />
                         <label for="gift">Ship as Gift?</label>
                     </p>
 
@@ -80,8 +87,10 @@
                     <p>City: {{order.city}}</p>
                     <p>State: {{order.state}}</p>
                     <p>Postal/Zip Code: {{order.zip}}</p>
-                    <p>Ship as Gift: {{order.gift}}</p>
                     <p>Shipping to: {{order.method}}</p>
+                    <p>Ship as Gift: {{order.dontSendGift}}</p>
+
+                    <button v-on:click="submitForm">Place Order</button>
                 </div>
             </main>
         </div>
@@ -111,8 +120,16 @@
                         zip: "",
                         method: "",
                         gift: false,
+                        sendGift: "Send as Gift",
+                        dontSendGift: "Send as General",
                     },
                     cart: [],
+                    states: {
+                        AL: "Alabama",
+                        AZ: "Arizona",
+                        CA: "California",
+                        NV: "Nevada",
+                    },
                 },
                 methods: {
                     addToCart: function () {
@@ -121,6 +138,9 @@
                     },
                     showCheckout: function () {
                         this.showProduct = this.showProduct ? false : true;
+                    },
+                    submitForm: function () {
+                        alert("Order submitted!");
                     },
                 },
                 computed: {
