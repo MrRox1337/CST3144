@@ -27,22 +27,31 @@
                 <!-- Product Catalog -->
                 <div v-if="showProduct">
                     <!-- Show Product Page -->
-                    <figure>
-                        <!-- bind 'src' attr to product.image' in 'data' -->
-                        <img v-bind:src="product.image" />
-                    </figure>
-                    <h2 v-text="product.title"></h2>
-                    <p v-html="product.description"></p>
+                    <div v-for="product in products">
+                        <figure>
+                            <!-- bind 'src' attr to product.image' in 'data' -->
+                            <img v-bind:src="product.image" />
+                        </figure>
+                        <h2 v-text="product.title"></h2>
+                        <p v-html="product.description"></p>
 
-                    <p>Price: {{product.price}}</p>
-                    <p>{{product.displayedInventory}} in stock</p>
+                        <p>Price: {{product.price}}</p>
+                        <p>{{product.displayedInventory}} in stock</p>
 
-                    <button v-if="canAddToCart" v-on:click="addToCart">Add to Cart</button>
-                    <!-- <button @click="addItem"> Add to Cart </button> -->
-                    <span v-if="itemsLeft === 0"> Out of stock!</span>
-                    <span v-else-if="itemsLeft < 5"> Only {{itemsLeft}} left!</span>
-                    <span v-else> Buy now!</span>
-                    <button v-else disabled="disabled">Add to Cart</button>
+                        <button v-if="canAddToCart(product)" v-on:click="addToCart(product)">
+                            Add to Cart
+                        </button>
+                        <!-- <button @click="addItem"> Add to Cart </button> -->
+                        <span v-if="itemsLeft === 0"> Out of stock!</span>
+                        <span v-else-if="itemsLeft < 5"> Only {{itemsLeft}} left!</span>
+                        <span v-else> Buy now!</span>
+                        <button v-else disabled="disabled">Add to Cart</button>
+                        <div>
+                            <span v-for="n in product.rating">★</span>
+                            <span v-for="n in 5 - product.rating">☆</span>
+                        </div>
+                    </div>
+                    s
                 </div>
 
                 <!-- Checkout Page -->
@@ -117,6 +126,7 @@
                 </div>
             </main>
         </div>
+        <script src="js/products.js"></script>
         <script type="text/javascript">
             let webstore = new Vue({
                 el: "#App",
@@ -131,9 +141,10 @@
                             "organic goodness for your cat.",
                         price: 2000,
                         image: "img/product.gif",
-                        availableInventory: 10,
-                        displayedInventory: 10,
+                        availableInventory: 5,
+                        displayedInventory: 5,
                     },
+                    products: products,
                     order: {
                         firstName: "",
                         lastName: "",
@@ -155,8 +166,8 @@
                     cart: [],
                 },
                 methods: {
-                    addToCart: function () {
-                        this.cart.push(this.product);
+                    addToCart(product) {
+                        this.cart.push(product);
                         this.product.displayedInventory = this.product.displayedInventory - 1;
                     },
                     showCheckout: function () {
@@ -165,13 +176,22 @@
                     submitForm: function () {
                         alert("Order submitted!");
                     },
+                    cartCount(id) {
+                        let count = 0;
+                        for (let i = 0; i < this.cart.length; i++) {
+                            if (this.cart[i] === id) {
+                                count++;
+                            }
+                        }
+                        return count;
+                    },
                 },
                 computed: {
                     cartItemCount: function () {
                         return this.cart.length || "";
                     },
-                    canAddToCart: function () {
-                        return this.product.availableInventory > this.cartItemCount;
+                    canAddToCart(product) {
+                        return product.availableInventory > this.cartCount(product.id);
                     },
                     itemsLeft: function () {
                         return this.product.availableInventory - this.cartItemCount;
