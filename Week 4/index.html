@@ -36,20 +36,20 @@
                         <p v-html="product.description"></p>
 
                         <p>Price: {{product.price}}</p>
-                        <p>{{product.displayedInventory}} in stock</p>
+                        <!-- <p>{{product.displayedInventory}} in stock</p> -->
 
                         <button v-if="canAddToCart(product)" v-on:click="addToCart(product)">
                             Add to Cart
                         </button>
                         <!-- <button @click="addItem"> Add to Cart </button> -->
-                        <span v-if="itemsLeft === 0"> Out of stock!</span>
+                        <!-- <span v-if="itemsLeft === 0"> Out of stock!</span>
                         <span v-else-if="itemsLeft < 5"> Only {{itemsLeft}} left!</span>
-                        <span v-else> Buy now!</span>
+                        <span v-else> Buy now!</span> -->
                         <button v-else disabled="disabled">Add to Cart</button>
-                        <div>
+                        <!-- <div>
                             <span v-for="n in product.rating">★</span>
                             <span v-for="n in 5 - product.rating">☆</span>
-                        </div>
+                        </div> -->
                     </div>
                     s
                 </div>
@@ -168,7 +168,7 @@
                 methods: {
                     addToCart(product) {
                         this.cart.push(product);
-                        this.product.displayedInventory = this.product.displayedInventory - 1;
+                        // this.product.displayedInventory = this.product.displayedInventory - 1;
                     },
                     showCheckout: function () {
                         this.showProduct = this.showProduct ? false : true;
@@ -185,13 +185,13 @@
                         }
                         return count;
                     },
+                    canAddToCart(product) {
+                        return product.availableInventory > this.cartCount(product.id);
+                    },
                 },
                 computed: {
                     cartItemCount: function () {
                         return this.cart.length || "";
-                    },
-                    canAddToCart(product) {
-                        return product.availableInventory > this.cartCount(product.id);
                     },
                     itemsLeft: function () {
                         return this.product.availableInventory - this.cartItemCount;
