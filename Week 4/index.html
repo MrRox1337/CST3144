@@ -42,12 +42,12 @@
 							Add to Cart
 						</button>
 						<!-- <button @click="addItem"> Add to Cart </button> -->
+						<button v-else disabled="disabled">Add to Cart</button>
 						<span v-if="product.availableInventory === cartCount(product.id)">All out!</span>
 						<span v-else-if="product.availableInventory - cartCount(product.id) < 5">
 							Only {{product.availableInventory - cartCount(product.id)}} left!
 						</span>
 						<span v-else>Buy now!</span>
-						<button v-else disabled="disabled">Add to Cart</button>
 						<div>
 							<span v-for="n in product.rating">★</span>
 							<span v-for="n in 5 - product.rating">☆</span>
