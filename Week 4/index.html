@@ -27,7 +27,8 @@
 				<!-- Product Catalog -->
 				<div v-if="showProduct">
 					<!-- Show Product Page -->
-					<div v-for="product in products">
+					<!-- Edit sortedProducts to products if you want to swap between sorted and unsorted products list -->
+					<div v-for="product in sortedProducts">
 						<figure>
 							<!-- bind 'src' attr to product.image' in 'data' -->
 							<img v-bind:src="product.image" />
