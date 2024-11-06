@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Fetch Text</title>
+        <script>
+            fetch("http://localhost:3000").then(function (response) {
+                response.text().then(function (text) {
+                    alert(text);
+                });
+            });
+        </script>
+    </head>
+    <body></body>
+</html>
