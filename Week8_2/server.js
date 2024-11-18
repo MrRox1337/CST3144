@@ -102,6 +102,7 @@ app.put("/collection/:collectionName/:id", updateObject);
 // Delete a document from the collection
 app.delete("/collection/:collectionName/:id", deleteObject);
 
-app.listen(3000, () => {
-    console.log("Express.js server running at localhost:3000");
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+    console.log("Express.js server running at localhost:" + port);
 });
