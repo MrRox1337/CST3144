@@ -1,4 +1,5 @@
 *.txt
+*.pdf
 *.json
 Dulasi
 node_modules
